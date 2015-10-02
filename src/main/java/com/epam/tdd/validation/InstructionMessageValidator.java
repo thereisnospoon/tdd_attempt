@@ -16,28 +16,43 @@ public class InstructionMessageValidator {
 
 	public void validate(InstructionMessage instructionMessage) {
 
-		String instructionType = instructionMessage.getInstructionType();
+		validateInstructionType(instructionMessage.getInstructionType());
+		validateProductCode(instructionMessage.getProductCode());
+		validateQuantity(instructionMessage.getQuantity());
+		validateUom(instructionMessage.getUom());
+		validateTimestamp(instructionMessage.getTimestamp());
+	}
+
+	private void validateInstructionType(String instructionType) {
 
 		if (!instructionType.matches(INSTRUCTION_TYPE_PATTERN)) {
 			throw new InstructionMessageValidationException("Invalid Instruction type: " + instructionType);
 		}
+	}
 
-		String productCode = instructionMessage.getProductCode();
+	private void validateProductCode(String productCode) {
+
 		if (!productCode.matches(PRODUCT_CODE_PATTERN)) {
 			throw new InstructionMessageValidationException("Invalid Product Code: " + productCode);
 		}
+	}
 
-		int quantity = instructionMessage.getQuantity();
+	private void validateQuantity(int quantity) {
+
 		if (quantity < MIN_VALID_QUANTITY) {
 			throw new InstructionMessageValidationException("Quantity is too small: " + quantity);
 		}
+	}
 
-		int uom = instructionMessage.getUom();
+	private void validateUom(int uom) {
+
 		if (uom < MIN_VALID_UOM || MAX_VALID_UOM < uom) {
 			throw new InstructionMessageValidationException("UOM is not in valid range: " + uom);
 		}
+	}
 
-		Instant timestamp = instructionMessage.getTimestamp();
+	private void validateTimestamp(Instant timestamp) {
+
 		if (timestamp.compareTo(Instant.EPOCH) <= 0 || Instant.now().compareTo(timestamp) < 0) {
 			throw new InstructionMessageValidationException("Timestamp is not in valid range: " + timestamp);
 		}

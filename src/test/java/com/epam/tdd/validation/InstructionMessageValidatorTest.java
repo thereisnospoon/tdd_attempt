@@ -148,7 +148,7 @@ public class InstructionMessageValidatorTest {
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidProductCode() {
 
-		instructionMessage.setInstructionType(INVALID_PRODUCT_CODE);
+		instructionMessage.setProductCode(INVALID_PRODUCT_CODE);
 		testedInstance.validate(instructionMessage);
 	}
 

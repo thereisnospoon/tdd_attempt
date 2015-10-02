@@ -18,4 +18,8 @@ public class InstructionQueue {
 	public void enqueue(InstructionMessage instructionMessage) {
 		messageQueue.add(instructionMessage);
 	}
+
+	public InstructionMessage dequeue() {
+		return messageQueue.poll();
+	}
 }

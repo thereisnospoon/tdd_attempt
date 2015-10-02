@@ -20,6 +20,12 @@ public class InstructionMessageValidatorTest {
 	private static final int INVALID_QUANTITY = 0;
 	private static final int VALID_QUANTITY = 50;
 
+	private static final int TOO_LOW_UOM = -1;
+	private static final int MIN_VALID_UOM = 0;
+	private static final int VALID_UOM = 128;
+	private static final int MAX_VALID_UOM = 255;
+	private static final int TOO_LARGE_UOM = 256;
+
 	private InstructionMessageValidator testedInstance = new InstructionMessageValidator();
 
 	private InstructionMessage instructionMessage;
@@ -82,6 +88,27 @@ public class InstructionMessageValidatorTest {
 		testedInstance.validate(instructionMessage);
 	}
 
+	@Test
+	public void shouldValidateMinUom() {
+
+		instructionMessage.setUom(MIN_VALID_UOM);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test
+	public void shouldValidateMaxUom() {
+
+		instructionMessage.setUom(MAX_VALID_UOM);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test
+	public void shouldValidateUom() {
+
+		instructionMessage.setUom(VALID_UOM);
+		testedInstance.validate(instructionMessage);
+	}
+
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidInstructionType() {
 
@@ -100,6 +127,20 @@ public class InstructionMessageValidatorTest {
 	public void shouldThrowExceptionWhenInvalidQuantity() {
 
 		instructionMessage.setQuantity(INVALID_QUANTITY);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenTooLowUom() {
+
+		instructionMessage.setUom(TOO_LOW_UOM);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenTooLargeUom() {
+
+		instructionMessage.setUom(TOO_LARGE_UOM);
 		testedInstance.validate(instructionMessage);
 	}
 }

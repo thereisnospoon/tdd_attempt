@@ -14,6 +14,7 @@ import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InstructionQueueTest {
@@ -135,6 +136,10 @@ public class InstructionQueueTest {
 
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenAddingInvalidMessage() {
+
+		doThrow(new InstructionMessageValidationException("invalid message"))
+				.when(instructionMessageValidator).validate(invalidInstructionMessage);
+
 		testedInstance.enqueue(invalidInstructionMessage);
 	}
 }

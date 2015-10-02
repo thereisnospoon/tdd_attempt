@@ -10,6 +10,7 @@ public class InstructionMessageParser {
 	private static final int NUMBER_OF_TOKENS_IN_MESSAGE = 6;
 	private static final int POSITION_OF_FIRST_TOKEN = 0;
 	private static final int POSITION_OF_INSTRUCTION_TYPE = 1;
+	private static final int POSITION_OF_PRODUCT_CODE = 2;
 
 	public InstructionMessage parse(String instructionMessageString) {
 
@@ -18,6 +19,7 @@ public class InstructionMessageParser {
 
 		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]);
+		instructionMessage.setProductCode(messageTokens[POSITION_OF_PRODUCT_CODE]);
 
 		return instructionMessage;
 	}

@@ -2,6 +2,12 @@ package com.epam.tdd.parsing;
 
 import com.epam.tdd.InstructionMessage;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class InstructionMessageParser {
 
 	private static final String MESSAGE_DELIMITER = "\\s";
@@ -13,6 +19,10 @@ public class InstructionMessageParser {
 	private static final int POSITION_OF_PRODUCT_CODE = 2;
 	private static final int POSITION_OF_QUANTITY = 3;
 	private static final int POSITION_OF_UOM = 4;
+	private static final int POSITION_OF_TIMESTAMP = 5;
+
+	private static final DateTimeFormatter DATE_TIME_FORMATTER =
+			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 	public InstructionMessage parse(String instructionMessageString) {
 
@@ -47,7 +57,14 @@ public class InstructionMessageParser {
 		instructionMessage.setProductCode(messageTokens[POSITION_OF_PRODUCT_CODE]);
 		instructionMessage.setQuantity(Integer.parseInt(messageTokens[POSITION_OF_QUANTITY]));
 		instructionMessage.setUom(Integer.parseInt(messageTokens[POSITION_OF_UOM]));
+		instructionMessage.setTimestamp(parseTimestamp(messageTokens[POSITION_OF_TIMESTAMP]));
 
 		return instructionMessage;
+	}
+
+	private Instant parseTimestamp(String timestampString) {
+
+		LocalDateTime timestamp = LocalDateTime.parse(timestampString, DATE_TIME_FORMATTER);
+		return ZonedDateTime.of(timestamp, ZoneId.systemDefault()).toInstant();
 	}
 }

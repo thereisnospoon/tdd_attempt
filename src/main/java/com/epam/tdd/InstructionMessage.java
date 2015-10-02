@@ -1,11 +1,14 @@
 package com.epam.tdd;
 
+import java.time.Instant;
+
 public class InstructionMessage {
 
 	private String instructionType;
 	private String productCode;
 	private int quantity;
 	private int uom;
+	private Instant timestamp;
 
 	public String getInstructionType() {
 		return instructionType;
@@ -37,5 +40,13 @@ public class InstructionMessage {
 
 	public void setUom(int uom) {
 		this.uom = uom;
+	}
+
+	public Instant getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Instant timestamp) {
+		this.timestamp = timestamp;
 	}
 }

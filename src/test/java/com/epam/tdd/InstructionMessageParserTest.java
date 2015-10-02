@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -75,8 +76,8 @@ public class InstructionMessageParserTest {
 		testedInstance.parse(INSTRUCTION_MESSAGE_WITH_INVALID_FIRST_TOKEN);
 	}
 
-	@Test(expected = InstructionMessageParsingException.class)
+	@Test(expected = DateTimeParseException.class)
 	public void shouldThrowExceptionWhenInvalidTimestampFormat() {
-		testedInstance.parse(INSTRUCTION_MESSAGE_WITH_INVALID_TIMESTAMP_FORMAT)
+		testedInstance.parse(INSTRUCTION_MESSAGE_WITH_INVALID_TIMESTAMP_FORMAT);
 	}
 }

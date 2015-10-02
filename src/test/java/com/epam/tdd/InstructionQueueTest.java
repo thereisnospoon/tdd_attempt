@@ -146,10 +146,10 @@ public class InstructionQueueTest {
 		InstructionMessage messageWithTypeC = createValidInstructionMessage();
 		messageWithTypeC.setInstructionType(InstructionMessageType.C);
 
-		List<InstructionMessage> messagesOrderByPriority = new LinkedList<>();
-		messagesOrderByPriority.add(messageWithTypeA);
-		messagesOrderByPriority.add(messageWithTypeB);
-		messagesOrderByPriority.add(messageWithTypeC);
+		List<InstructionMessage> messagesOrderedByPriority = new LinkedList<>();
+		messagesOrderedByPriority.add(messageWithTypeA);
+		messagesOrderedByPriority.add(messageWithTypeB);
+		messagesOrderedByPriority.add(messageWithTypeC);
 
 		testedInstance.enqueue(messageWithTypeB);
 		testedInstance.enqueue(messageWithTypeC);
@@ -160,7 +160,46 @@ public class InstructionQueueTest {
 			retrievedMessages.add(testedInstance.dequeue());
 		}
 
-		assertEquals(messagesOrderByPriority, retrievedMessages);
+		assertEquals(messagesOrderedByPriority, retrievedMessages);
+	}
+
+	@Test
+	public void shouldRetrieveMessagesAsFIFO() {
+
+		InstructionMessage firstInstructionMessageWithTypeA = createValidInstructionMessage();
+		firstInstructionMessageWithTypeA.setInstructionType(InstructionMessageType.A);
+
+		InstructionMessage secondInstructionMessageWithTypeA = createValidInstructionMessage();
+		secondInstructionMessageWithTypeA.setInstructionType(InstructionMessageType.A);
+
+		InstructionMessage thirdInstructionMessageWithTypeA = createValidInstructionMessage();
+		thirdInstructionMessageWithTypeA.setInstructionType(InstructionMessageType.A);
+
+		InstructionMessage instructionMessageWithTypeC = createValidInstructionMessage();
+		instructionMessageWithTypeC.setInstructionType(InstructionMessageType.C);
+
+		InstructionMessage instructionMessageWithTypeD = createValidInstructionMessage();
+		instructionMessageWithTypeD.setInstructionType(InstructionMessageType.D);
+
+		List<InstructionMessage> correctlyOrderedMessages = new LinkedList<>();
+		correctlyOrderedMessages.add(firstInstructionMessageWithTypeA);
+		correctlyOrderedMessages.add(secondInstructionMessageWithTypeA);
+		correctlyOrderedMessages.add(thirdInstructionMessageWithTypeA);
+		correctlyOrderedMessages.add(instructionMessageWithTypeC);
+		correctlyOrderedMessages.add(instructionMessageWithTypeD);
+
+		testedInstance.enqueue(instructionMessageWithTypeC);
+		testedInstance.enqueue(firstInstructionMessageWithTypeA);
+		testedInstance.enqueue(instructionMessageWithTypeD);
+		testedInstance.enqueue(secondInstructionMessageWithTypeA);
+		testedInstance.enqueue(thirdInstructionMessageWithTypeA);
+
+		List<InstructionMessage> retrievedMessages = new LinkedList<>();
+		while (!testedInstance.isEmpty()) {
+			retrievedMessages.add(testedInstance.dequeue());
+		}
+
+		assertEquals(correctlyOrderedMessages, retrievedMessages);
 	}
 
 	@Test(expected = InstructionMessageValidationException.class)

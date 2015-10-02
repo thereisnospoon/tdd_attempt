@@ -11,17 +11,14 @@ public class InstructionMessageParser {
 	private static final int POSITION_OF_FIRST_TOKEN = 0;
 	private static final int POSITION_OF_INSTRUCTION_TYPE = 1;
 	private static final int POSITION_OF_PRODUCT_CODE = 2;
+	private static final int POSITION_OF_QUANTITY = 3;
+	private static final int POSITION_OF_UOM = 4;
 
 	public InstructionMessage parse(String instructionMessageString) {
 
 		String[] messageTokens = instructionMessageString.split(MESSAGE_DELIMITER);
 		validateMessageFormat(messageTokens);
-
-		InstructionMessage instructionMessage = new InstructionMessage();
-		instructionMessage.setInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]);
-		instructionMessage.setProductCode(messageTokens[POSITION_OF_PRODUCT_CODE]);
-
-		return instructionMessage;
+		return parseMessageParameters(messageTokens);
 	}
 
 	private void validateMessageFormat(String[] messageTokens) {
@@ -41,5 +38,16 @@ public class InstructionMessageParser {
 			throw new InstructionMessageParsingException("First token of message is invalid: "
 					+ messageTokens[POSITION_OF_FIRST_TOKEN]);
 		}
+	}
+
+	private InstructionMessage parseMessageParameters(String[] messageTokens) {
+
+		InstructionMessage instructionMessage = new InstructionMessage();
+		instructionMessage.setInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]);
+		instructionMessage.setProductCode(messageTokens[POSITION_OF_PRODUCT_CODE]);
+		instructionMessage.setQuantity(Integer.parseInt(messageTokens[POSITION_OF_QUANTITY]));
+		instructionMessage.setUom(Integer.parseInt(messageTokens[POSITION_OF_UOM]));
+
+		return instructionMessage;
 	}
 }

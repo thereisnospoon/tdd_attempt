@@ -1,5 +1,7 @@
 package com.epam.tdd;
 
+import com.epam.tdd.parsing.InstructionMessageParser;
+import com.epam.tdd.parsing.InstructionMessageParsingException;
 import org.junit.Test;
 
 public class InstructionMessageParserTest {

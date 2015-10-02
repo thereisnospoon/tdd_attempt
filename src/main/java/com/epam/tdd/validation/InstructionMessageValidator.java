@@ -6,7 +6,6 @@ import java.time.Instant;
 
 public class InstructionMessageValidator {
 
-	private static final String INSTRUCTION_TYPE_PATTERN = "[A-D]";
 	private static final String PRODUCT_CODE_PATTERN = "[A-Z]{2}\\d{2}";
 
 	private static final int MIN_VALID_QUANTITY = 1;

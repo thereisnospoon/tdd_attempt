@@ -4,6 +4,10 @@ import com.epam.tdd.InstructionMessage;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 public class InstructionMessageValidatorTest {
 
 	private static final String INSTRUCTION_TYPE_A = "A";
@@ -26,6 +30,15 @@ public class InstructionMessageValidatorTest {
 	private static final int MAX_VALID_UOM = 255;
 	private static final int TOO_LARGE_UOM = 256;
 
+	private static final Instant TIMESTAMP_BEFORE_EPOCH =
+			ZonedDateTime.of(1969, 1, 1, 1, 1, 1, 1, ZoneId.systemDefault()).toInstant();
+
+	private static final Instant VALID_TIMESTAMP =
+			ZonedDateTime.of(2014, 1, 1, 1, 1, 1, 1, ZoneId.systemDefault()).toInstant();
+
+	private static final Instant TIMESTAMP_FROM_FUTURE =
+			ZonedDateTime.of(9999, 1, 1, 1, 1, 1, 1, ZoneId.systemDefault()).toInstant();
+
 	private InstructionMessageValidator testedInstance = new InstructionMessageValidator();
 
 	private InstructionMessage instructionMessage;
@@ -37,6 +50,8 @@ public class InstructionMessageValidatorTest {
 		instructionMessage.setInstructionType(INSTRUCTION_TYPE_A);
 		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
 		instructionMessage.setQuantity(VALID_QUANTITY);
+		instructionMessage.setUom(VALID_UOM);
+		instructionMessage.setTimestamp(VALID_TIMESTAMP);
 	}
 
 	@Test
@@ -75,6 +90,13 @@ public class InstructionMessageValidatorTest {
 	}
 
 	@Test
+	public void shouldValidateQuantity() {
+
+		instructionMessage.setQuantity(VALID_QUANTITY);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test
 	public void shouldValidateMinQuantity() {
 
 		instructionMessage.setQuantity(MIN_VALID_QUANTITY);
@@ -82,9 +104,9 @@ public class InstructionMessageValidatorTest {
 	}
 
 	@Test
-	public void shouldValidateQuantity() {
+	public void shouldValidateUom() {
 
-		instructionMessage.setQuantity(VALID_QUANTITY);
+		instructionMessage.setUom(VALID_UOM);
 		testedInstance.validate(instructionMessage);
 	}
 
@@ -103,9 +125,16 @@ public class InstructionMessageValidatorTest {
 	}
 
 	@Test
-	public void shouldValidateUom() {
+	public void shouldValidateTimestamp() {
 
-		instructionMessage.setUom(VALID_UOM);
+		instructionMessage.setTimestamp(VALID_TIMESTAMP);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test
+	public void shouldValidateCurrentTimestamp() {
+
+		instructionMessage.setTimestamp(Instant.now());
 		testedInstance.validate(instructionMessage);
 	}
 
@@ -141,6 +170,27 @@ public class InstructionMessageValidatorTest {
 	public void shouldThrowExceptionWhenTooLargeUom() {
 
 		instructionMessage.setUom(TOO_LARGE_UOM);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenTimestampBeforeEpoch() {
+
+		instructionMessage.setTimestamp(TIMESTAMP_BEFORE_EPOCH);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenTimestampEqualsEpoch() {
+
+		instructionMessage.setTimestamp(Instant.EPOCH);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenTimestampFromFuture() {
+
+		instructionMessage.setTimestamp(TIMESTAMP_FROM_FUTURE);
 		testedInstance.validate(instructionMessage);
 	}
 }

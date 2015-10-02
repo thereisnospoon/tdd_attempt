@@ -9,6 +9,9 @@ public class InstructionMessageValidator {
 
 	private static final int MIN_VALID_QUANTITY = 1;
 
+	private static final int MIN_VALID_UOM = 0;
+	private static final int MAX_VALID_UOM = 255;
+
 	public void validate(InstructionMessage instructionMessage) {
 
 		String instructionType = instructionMessage.getInstructionType();
@@ -25,6 +28,11 @@ public class InstructionMessageValidator {
 		int quantity = instructionMessage.getQuantity();
 		if (quantity < MIN_VALID_QUANTITY) {
 			throw new InstructionMessageValidationException("Quantity is too small: " + quantity);
+		}
+
+		int uom = instructionMessage.getUom();
+		if (uom < MIN_VALID_UOM || MAX_VALID_UOM < uom) {
+			throw new InstructionMessageValidationException("UOM is not in valid range: " + uom);
 		}
 	}
 }

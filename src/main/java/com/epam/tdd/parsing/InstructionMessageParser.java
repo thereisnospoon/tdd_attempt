@@ -1,6 +1,7 @@
 package com.epam.tdd.parsing;
 
 import com.epam.tdd.InstructionMessage;
+import com.epam.tdd.InstructionMessageType;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -53,13 +54,17 @@ public class InstructionMessageParser {
 	private InstructionMessage parseMessageParameters(String[] messageTokens) {
 
 		InstructionMessage instructionMessage = new InstructionMessage();
-		instructionMessage.setInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]);
+		instructionMessage.setInstructionType(parseInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]));
 		instructionMessage.setProductCode(messageTokens[POSITION_OF_PRODUCT_CODE]);
 		instructionMessage.setQuantity(Integer.parseInt(messageTokens[POSITION_OF_QUANTITY]));
 		instructionMessage.setUom(Integer.parseInt(messageTokens[POSITION_OF_UOM]));
 		instructionMessage.setTimestamp(parseTimestamp(messageTokens[POSITION_OF_TIMESTAMP]));
 
 		return instructionMessage;
+	}
+
+	private InstructionMessageType parseInstructionType(String instructionTypeAsString) {
+		return InstructionMessageType.valueOf(instructionTypeAsString);
 	}
 
 	private Instant parseTimestamp(String timestampString) {

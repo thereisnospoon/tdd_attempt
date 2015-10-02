@@ -25,7 +25,7 @@ public class InstructionQueueTest {
 	private static final int COUNT_FOR_QUEUE_WITH_TWO_MESSAGES = 2;
 
 	private static final String VALID_PRODUCT_CODE = "MB12";
-	private static final String VALID_INSTRUCTION_TYPE = "A";
+	private static final InstructionMessageType VALID_INSTRUCTION_TYPE = InstructionMessageType.A;
 	private static final int VALID_QUANTITY = 1;
 	private static final int VALID_UOM = 1;
 	private static final Instant VALID_TIMESTAMP = Instant.now();
@@ -138,16 +138,16 @@ public class InstructionQueueTest {
 	public void shouldDequeueMessagesByPriority() {
 
 		InstructionMessage messageWithTypeA = createValidInstructionMessage();
-		messageWithTypeA.setInstructionType("A");
+		messageWithTypeA.setInstructionType(InstructionMessageType.A);
 
 		InstructionMessage messageWithTypeB = createValidInstructionMessage();
-		messageWithTypeB.setInstructionType("B");
+		messageWithTypeB.setInstructionType(InstructionMessageType.B);
 
 		InstructionMessage messageWithTypeC = createValidInstructionMessage();
-		messageWithTypeC.setInstructionType("C");
+		messageWithTypeC.setInstructionType(InstructionMessageType.C);
 
 		InstructionMessage messageWithTypeD = createValidInstructionMessage();
-		messageWithTypeD.setInstructionType("D");
+		messageWithTypeD.setInstructionType(InstructionMessageType.D);
 
 		List<InstructionMessage> messagesOrderByPriority = new LinkedList<>();
 		messagesOrderByPriority.add(messageWithTypeA);

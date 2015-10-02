@@ -1,6 +1,7 @@
 package com.epam.tdd.parsing;
 
 import com.epam.tdd.InstructionMessage;
+import com.epam.tdd.InstructionMessageType;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class InstructionMessageParserTest {
 			"InstructionMessage A MZ89 5678 50 2015/03/05T10:04:56.012Z";
 
 	private static final String VALID_INSTRUCTION_MESSAGE = "InstructionMessage A MZ89 5678 50 2015-03-05T10:04:56.000Z";
-	private static final String INSTRUCTION_TYPE_FROM_VALID_MESSAGE = "A";
+	private static final InstructionMessageType INSTRUCTION_TYPE_FROM_VALID_MESSAGE = InstructionMessageType.A;
 	private static final String PRODUCT_CODE_FROM_VALID_MESSAGE = "MZ89";
 	private static final int QUANTITY_FROM_VALID_MESSAGE = 5678;
 	private static final int UOM_FROM_VALID_MESSAGE = 50;

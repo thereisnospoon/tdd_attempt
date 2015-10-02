@@ -16,18 +16,10 @@ public class InstructionMessageValidator {
 
 	public void validate(InstructionMessage instructionMessage) {
 
-		validateInstructionType(instructionMessage.getInstructionType());
 		validateProductCode(instructionMessage.getProductCode());
 		validateQuantity(instructionMessage.getQuantity());
 		validateUom(instructionMessage.getUom());
 		validateTimestamp(instructionMessage.getTimestamp());
-	}
-
-	private void validateInstructionType(String instructionType) {
-
-		if (!instructionType.matches(INSTRUCTION_TYPE_PATTERN)) {
-			throw new InstructionMessageValidationException("Invalid Instruction type: " + instructionType);
-		}
 	}
 
 	private void validateProductCode(String productCode) {

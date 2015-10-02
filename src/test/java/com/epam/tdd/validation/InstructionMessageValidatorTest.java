@@ -1,6 +1,7 @@
 package com.epam.tdd.validation;
 
 import com.epam.tdd.InstructionMessage;
+import com.epam.tdd.InstructionMessageType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,13 +10,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class InstructionMessageValidatorTest {
-
-	private static final String INSTRUCTION_TYPE_A = "A";
-	private static final String INSTRUCTION_TYPE_B = "B";
-	private static final String INSTRUCTION_TYPE_C = "C";
-	private static final String INSTRUCTION_TYPE_D = "D";
-
-	private static final String INVALID_INSTRUCTION_TYPE = "G";
 
 	private static final String VALID_PRODUCT_CODE = "MB78";
 	private static final String INVALID_PRODUCT_CODE = "M123";
@@ -47,7 +41,7 @@ public class InstructionMessageValidatorTest {
 	public void setUp() {
 
 		instructionMessage = new InstructionMessage();
-		instructionMessage.setInstructionType(INSTRUCTION_TYPE_A);
+		instructionMessage.setInstructionType(InstructionMessageType.A);
 		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
 		instructionMessage.setQuantity(VALID_QUANTITY);
 		instructionMessage.setUom(VALID_UOM);
@@ -57,28 +51,28 @@ public class InstructionMessageValidatorTest {
 	@Test
 	public void shouldValidateInstructionTypeA() {
 
-		instructionMessage.setInstructionType(INSTRUCTION_TYPE_A);
+		instructionMessage.setInstructionType(InstructionMessageType.A);
 		testedInstance.validate(instructionMessage);
 	}
 
 	@Test
 	public void shouldValidateInstructionTypeB() {
 
-		instructionMessage.setInstructionType(INSTRUCTION_TYPE_B);
+		instructionMessage.setInstructionType(InstructionMessageType.B);
 		testedInstance.validate(instructionMessage);
 	}
 
 	@Test
 	public void shouldValidateInstructionTypeC() {
 
-		instructionMessage.setInstructionType(INSTRUCTION_TYPE_C);
+		instructionMessage.setInstructionType(InstructionMessageType.C);
 		testedInstance.validate(instructionMessage);
 	}
 
 	@Test
 	public void shouldValidateInstructionTypeD() {
 
-		instructionMessage.setInstructionType(INSTRUCTION_TYPE_D);
+		instructionMessage.setInstructionType(InstructionMessageType.D);
 		testedInstance.validate(instructionMessage);
 	}
 
@@ -135,13 +129,6 @@ public class InstructionMessageValidatorTest {
 	public void shouldValidateCurrentTimestamp() {
 
 		instructionMessage.setTimestamp(Instant.now());
-		testedInstance.validate(instructionMessage);
-	}
-
-	@Test(expected = InstructionMessageValidationException.class)
-	public void shouldThrowExceptionWhenInvalidInstructionType() {
-
-		instructionMessage.setInstructionType(INVALID_INSTRUCTION_TYPE);
 		testedInstance.validate(instructionMessage);
 	}
 

@@ -4,17 +4,17 @@ import java.time.Instant;
 
 public class InstructionMessage {
 
-	private String instructionType;
+	private InstructionMessageType instructionType;
 	private String productCode;
 	private int quantity;
 	private int uom;
 	private Instant timestamp;
 
-	public String getInstructionType() {
+	public InstructionMessageType getInstructionType() {
 		return instructionType;
 	}
 
-	public void setInstructionType(String instructionType) {
+	public void setInstructionType(InstructionMessageType instructionType) {
 		this.instructionType = instructionType;
 	}
 

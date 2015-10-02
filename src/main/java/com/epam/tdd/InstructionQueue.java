@@ -26,4 +26,8 @@ public class InstructionQueue {
 	public int count() {
 		return messageQueue.size();
 	}
+
+	public InstructionMessage peek() {
+		return messageQueue.peek();
+	}
 }

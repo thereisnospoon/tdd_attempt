@@ -12,6 +12,9 @@ public class InstructionMessageValidatorTest {
 
 	private static final String INVALID_INSTRUCTION_TYPE = "G";
 
+	private static final String VALID_PRODUCT_CODE = "MB78";
+	private static final String INVALID_PRODUCT_CODE = "M123";
+
 	private InstructionMessageValidator testedInstance = new InstructionMessageValidator();
 
 	@Test
@@ -46,11 +49,27 @@ public class InstructionMessageValidatorTest {
 		testedInstance.validate(instructionMessage);
 	}
 
+	@Test
+	public void shouldSuccessfullyValidateProductCode() {
+
+		InstructionMessage instructionMessage = new InstructionMessage();
+		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
+		testedInstance.validate(instructionMessage);
+	}
+
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidInstructionType() {
 
 		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INVALID_INSTRUCTION_TYPE);
+		testedInstance.validate(instructionMessage);
+	}
+
+	@Test(expected = InstructionMessageValidationException.class)
+	public void shouldThrowExceptionWhenInvalidProductCode() {
+
+		InstructionMessage instructionMessage = new InstructionMessage();
+		instructionMessage.setInstructionType(INVALID_PRODUCT_CODE);
 		testedInstance.validate(instructionMessage);
 	}
 }

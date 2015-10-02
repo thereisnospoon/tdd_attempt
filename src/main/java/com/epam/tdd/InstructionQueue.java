@@ -22,4 +22,8 @@ public class InstructionQueue {
 	public InstructionMessage dequeue() {
 		return messageQueue.poll();
 	}
+
+	public int count() {
+		return messageQueue.size();
+	}
 }

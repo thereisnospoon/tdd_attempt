@@ -25,6 +25,6 @@ public class MessageReceiverImplTest {
 	public void shouldParseReceivedMessage() {
 
 		testedInstance.receive(INSTRUCTION_MESSAGE);
-		verify(instructionMessageParser.parse(INSTRUCTION_MESSAGE));
+		verify(instructionMessageParser).parse(INSTRUCTION_MESSAGE);
 	}
 }

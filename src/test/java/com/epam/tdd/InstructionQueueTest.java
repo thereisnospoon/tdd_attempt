@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.Instant;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -130,6 +132,40 @@ public class InstructionQueueTest {
 
 		testedInstance.peek();
 		assertEquals(COUNT_FOR_QUEUE_WITH_TWO_MESSAGES, testedInstance.count());
+	}
+
+	@Test
+	public void shouldDequeueMessagesByPriority() {
+
+		InstructionMessage messageWithTypeA = createValidInstructionMessage();
+		messageWithTypeA.setInstructionType("A");
+
+		InstructionMessage messageWithTypeB = createValidInstructionMessage();
+		messageWithTypeB.setInstructionType("B");
+
+		InstructionMessage messageWithTypeC = createValidInstructionMessage();
+		messageWithTypeC.setInstructionType("C");
+
+		InstructionMessage messageWithTypeD = createValidInstructionMessage();
+		messageWithTypeD.setInstructionType("D");
+
+		List<InstructionMessage> messagesOrderByPriority = new LinkedList<>();
+		messagesOrderByPriority.add(messageWithTypeA);
+		messagesOrderByPriority.add(messageWithTypeB);
+		messagesOrderByPriority.add(messageWithTypeC);
+		messagesOrderByPriority.add(messageWithTypeD);
+
+		testedInstance.enqueue(messageWithTypeB);
+		testedInstance.enqueue(messageWithTypeC);
+		testedInstance.enqueue(messageWithTypeD);
+		testedInstance.enqueue(messageWithTypeA);
+
+		List<InstructionMessage> retrievedMessages = new LinkedList<>();
+		while (!testedInstance.isEmpty()) {
+			retrievedMessages.add(testedInstance.dequeue());
+		}
+
+		assertEquals(messagesOrderByPriority, retrievedMessages);
 	}
 
 	@Test(expected = InstructionMessageValidationException.class)

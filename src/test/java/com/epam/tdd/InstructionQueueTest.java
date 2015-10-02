@@ -146,18 +146,13 @@ public class InstructionQueueTest {
 		InstructionMessage messageWithTypeC = createValidInstructionMessage();
 		messageWithTypeC.setInstructionType(InstructionMessageType.C);
 
-		InstructionMessage messageWithTypeD = createValidInstructionMessage();
-		messageWithTypeD.setInstructionType(InstructionMessageType.D);
-
 		List<InstructionMessage> messagesOrderByPriority = new LinkedList<>();
 		messagesOrderByPriority.add(messageWithTypeA);
 		messagesOrderByPriority.add(messageWithTypeB);
 		messagesOrderByPriority.add(messageWithTypeC);
-		messagesOrderByPriority.add(messageWithTypeD);
 
 		testedInstance.enqueue(messageWithTypeB);
 		testedInstance.enqueue(messageWithTypeC);
-		testedInstance.enqueue(messageWithTypeD);
 		testedInstance.enqueue(messageWithTypeA);
 
 		List<InstructionMessage> retrievedMessages = new LinkedList<>();

@@ -2,7 +2,8 @@ package com.epam.tdd;
 
 import com.epam.tdd.validation.InstructionMessageValidator;
 
-import java.util.LinkedList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class InstructionQueue {
@@ -13,7 +14,7 @@ public class InstructionQueue {
 
 	public InstructionQueue() {
 
-		messageQueue = new LinkedList<>();
+		messageQueue = new PriorityQueue<>(Comparator.comparing(message -> message.getInstructionType().getPriority()));
 		instructionMessageValidator = new InstructionMessageValidator();
 	}
 

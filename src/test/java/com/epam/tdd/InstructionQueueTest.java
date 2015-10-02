@@ -77,4 +77,24 @@ public class InstructionQueueTest {
 
 		assertEquals(ZERO_COUNT, testedInstance.count());
 	}
+
+	@Test
+	public void shouldReturnPreviouslyAddedMessageWhenPeek() {
+
+		testedInstance.enqueue(instructionMessage);
+		InstructionMessage retrievedMessage = testedInstance.peek();
+		assertEquals(instructionMessage, retrievedMessage);
+	}
+
+	@Test
+	public void shouldNotChangeCountAfterPeek() {
+
+		testedInstance.enqueue(instructionMessage);
+		testedInstance.enqueue(instructionMessage);
+
+		assertEquals(COUNT_FOR_QUEUE_WITH_TWO_MESSAGES, testedInstance.count());
+
+		testedInstance.peek();
+		assertEquals(COUNT_FOR_QUEUE_WITH_TWO_MESSAGES, testedInstance.count());
+	}
 }

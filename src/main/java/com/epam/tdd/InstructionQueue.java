@@ -1,5 +1,7 @@
 package com.epam.tdd;
 
+import com.epam.tdd.validation.InstructionMessageValidator;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -7,8 +9,12 @@ public class InstructionQueue {
 
 	private Queue<InstructionMessage> messageQueue;
 
+	private InstructionMessageValidator instructionMessageValidator;
+
 	public InstructionQueue() {
+
 		messageQueue = new LinkedList<>();
+		instructionMessageValidator = new InstructionMessageValidator();
 	}
 
 	public boolean isEmpty() {
@@ -16,6 +22,8 @@ public class InstructionQueue {
 	}
 
 	public void enqueue(InstructionMessage instructionMessage) {
+
+		instructionMessageValidator.validate(instructionMessage);
 		messageQueue.add(instructionMessage);
 	}
 

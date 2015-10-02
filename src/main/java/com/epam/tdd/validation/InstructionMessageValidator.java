@@ -7,6 +7,8 @@ public class InstructionMessageValidator {
 	private static final String INSTRUCTION_TYPE_PATTERN = "[A-D]";
 	private static final String PRODUCT_CODE_PATTERN = "[A-Z]{2}\\d{2}";
 
+	private static final int MIN_VALID_QUANTITY = 1;
+
 	public void validate(InstructionMessage instructionMessage) {
 
 		String instructionType = instructionMessage.getInstructionType();
@@ -18,6 +20,11 @@ public class InstructionMessageValidator {
 		String productCode = instructionMessage.getProductCode();
 		if (!productCode.matches(PRODUCT_CODE_PATTERN)) {
 			throw new InstructionMessageValidationException("Invalid Product Code: " + productCode);
+		}
+
+		int quantity = instructionMessage.getQuantity();
+		if (quantity < MIN_VALID_QUANTITY) {
+			throw new InstructionMessageValidationException("Quantity is too small: " + quantity);
 		}
 	}
 }

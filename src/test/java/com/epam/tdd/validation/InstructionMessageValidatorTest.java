@@ -99,7 +99,7 @@ public class InstructionMessageValidatorTest {
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidQuantity() {
 
-		instructionMessage.setQuantity(VALID_QUANTITY);
+		instructionMessage.setQuantity(INVALID_QUANTITY);
 		testedInstance.validate(instructionMessage);
 	}
 }

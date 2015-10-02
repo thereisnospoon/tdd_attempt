@@ -1,7 +1,6 @@
-package com.epam.tdd;
+package com.epam.tdd.parsing;
 
-import com.epam.tdd.parsing.InstructionMessageParser;
-import com.epam.tdd.parsing.InstructionMessageParsingException;
+import com.epam.tdd.InstructionMessage;
 import org.junit.Test;
 
 import java.time.LocalDateTime;

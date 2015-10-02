@@ -23,10 +23,19 @@ public class InstructionQueueTest {
 	}
 
 	@Test
-	public void shouldBeNonEmpty() {
+	public void shouldBeNotEmpty() {
 
 		assertTrue(testedInstance.isEmpty());
 		testedInstance.enqueue(instructionMessage);
 		assertFalse(testedInstance.isEmpty());
+	}
+
+	@Test
+	public void shouldBeEmptyAfterMessageDequeue() {
+
+		assertTrue(testedInstance.isEmpty());
+		testedInstance.enqueue(instructionMessage);
+		testedInstance.dequeue();
+		assertTrue(testedInstance.isEmpty());
 	}
 }

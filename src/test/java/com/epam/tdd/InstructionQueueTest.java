@@ -37,24 +37,22 @@ public class InstructionQueueTest {
 	private InstructionMessageValidator instructionMessageValidator;
 
 	private InstructionMessage instructionMessage;
-	private InstructionMessage invalidInstructionMessage;
 
 	@Before
 	public void setUp() {
+		instructionMessage = createValidInstructionMessage();
+	}
 
-		instructionMessage = new InstructionMessage();
-		instructionMessage.setInstructionType(VALID_INSTRUCTION_TYPE);
-		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
-		instructionMessage.setQuantity(VALID_QUANTITY);
-		instructionMessage.setUom(VALID_UOM);
-		instructionMessage.setTimestamp(VALID_TIMESTAMP);
+	private InstructionMessage createValidInstructionMessage() {
 
-		invalidInstructionMessage = new InstructionMessage();
-		invalidInstructionMessage.setInstructionType(VALID_INSTRUCTION_TYPE);
-		invalidInstructionMessage.setProductCode(VALID_PRODUCT_CODE);
-		invalidInstructionMessage.setQuantity(VALID_QUANTITY);
-		invalidInstructionMessage.setUom(INVALID_UOM);
-		invalidInstructionMessage.setTimestamp(VALID_TIMESTAMP);
+		InstructionMessage validInstructionMessage = new InstructionMessage();
+		validInstructionMessage.setInstructionType(VALID_INSTRUCTION_TYPE);
+		validInstructionMessage.setProductCode(VALID_PRODUCT_CODE);
+		validInstructionMessage.setQuantity(VALID_QUANTITY);
+		validInstructionMessage.setUom(VALID_UOM);
+		validInstructionMessage.setTimestamp(VALID_TIMESTAMP);
+
+		return validInstructionMessage;
 	}
 
 	@Test
@@ -136,6 +134,9 @@ public class InstructionQueueTest {
 
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenAddingInvalidMessage() {
+
+		InstructionMessage invalidInstructionMessage = createValidInstructionMessage();
+		invalidInstructionMessage.setUom(INVALID_UOM);
 
 		doThrow(new InstructionMessageValidationException("invalid message"))
 				.when(instructionMessageValidator).validate(invalidInstructionMessage);

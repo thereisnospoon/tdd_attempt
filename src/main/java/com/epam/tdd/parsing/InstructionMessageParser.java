@@ -14,18 +14,30 @@ public class InstructionMessageParser {
 	public InstructionMessage parse(String instructionMessageString) {
 
 		String[] messageTokens = instructionMessageString.split(MESSAGE_DELIMITER);
-		if (NUMBER_OF_TOKENS_IN_MESSAGE != messageTokens.length) {
-			throw new InstructionMessageParsingException("Invalid number of tokens in message");
-		}
-
-		if (!FIRST_TOKEN_OF_MESSAGE.equals(messageTokens[POSITION_OF_FIRST_TOKEN])) {
-			throw new InstructionMessageParsingException("First token of message is invalid: "
-					+ messageTokens[POSITION_OF_FIRST_TOKEN]);
-		}
+		validateMessageFormat(messageTokens);
 
 		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(messageTokens[POSITION_OF_INSTRUCTION_TYPE]);
 
 		return instructionMessage;
+	}
+
+	private void validateMessageFormat(String[] messageTokens) {
+
+		validateNumberOfTokens(messageTokens);
+		validateFirstTokenOfMessage(messageTokens);
+	}
+
+	private void validateNumberOfTokens(String[] messageTokens) {
+		if (NUMBER_OF_TOKENS_IN_MESSAGE != messageTokens.length) {
+			throw new InstructionMessageParsingException("Invalid number of tokens in message");
+		}
+	}
+
+	private void validateFirstTokenOfMessage(String[] messageTokens) {
+		if (!FIRST_TOKEN_OF_MESSAGE.equals(messageTokens[POSITION_OF_FIRST_TOKEN])) {
+			throw new InstructionMessageParsingException("First token of message is invalid: "
+					+ messageTokens[POSITION_OF_FIRST_TOKEN]);
+		}
 	}
 }

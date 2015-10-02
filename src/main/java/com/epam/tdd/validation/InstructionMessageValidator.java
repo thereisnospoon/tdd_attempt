@@ -2,6 +2,8 @@ package com.epam.tdd.validation;
 
 import com.epam.tdd.InstructionMessage;
 
+import java.time.Instant;
+
 public class InstructionMessageValidator {
 
 	private static final String INSTRUCTION_TYPE_PATTERN = "[A-D]";
@@ -33,6 +35,11 @@ public class InstructionMessageValidator {
 		int uom = instructionMessage.getUom();
 		if (uom < MIN_VALID_UOM || MAX_VALID_UOM < uom) {
 			throw new InstructionMessageValidationException("UOM is not in valid range: " + uom);
+		}
+
+		Instant timestamp = instructionMessage.getTimestamp();
+		if (timestamp.compareTo(Instant.EPOCH) <= 0 || Instant.now().compareTo(timestamp) < 0) {
+			throw new InstructionMessageValidationException("Timestamp is not in valid range: " + timestamp);
 		}
 	}
 }

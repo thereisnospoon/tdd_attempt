@@ -1,6 +1,7 @@
 package com.epam.tdd.validation;
 
 import com.epam.tdd.InstructionMessage;
+import org.junit.Before;
 import org.junit.Test;
 
 public class InstructionMessageValidatorTest {
@@ -17,10 +18,19 @@ public class InstructionMessageValidatorTest {
 
 	private InstructionMessageValidator testedInstance = new InstructionMessageValidator();
 
+	private InstructionMessage instructionMessage;
+
+	@Before
+	public void setUp() {
+
+		instructionMessage = new InstructionMessage();
+		instructionMessage.setInstructionType(INSTRUCTION_TYPE_A);
+		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
+	}
+
 	@Test
 	public void shouldSuccessfullyValidateInstructionTypeA() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INSTRUCTION_TYPE_A);
 		testedInstance.validate(instructionMessage);
 	}
@@ -28,7 +38,6 @@ public class InstructionMessageValidatorTest {
 	@Test
 	public void shouldSuccessfullyValidateInstructionTypeB() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INSTRUCTION_TYPE_B);
 		testedInstance.validate(instructionMessage);
 	}
@@ -36,7 +45,6 @@ public class InstructionMessageValidatorTest {
 	@Test
 	public void shouldSuccessfullyValidateInstructionTypeC() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INSTRUCTION_TYPE_C);
 		testedInstance.validate(instructionMessage);
 	}
@@ -44,7 +52,6 @@ public class InstructionMessageValidatorTest {
 	@Test
 	public void shouldSuccessfullyValidateInstructionTypeD() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INSTRUCTION_TYPE_D);
 		testedInstance.validate(instructionMessage);
 	}
@@ -52,7 +59,6 @@ public class InstructionMessageValidatorTest {
 	@Test
 	public void shouldSuccessfullyValidateProductCode() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setProductCode(VALID_PRODUCT_CODE);
 		testedInstance.validate(instructionMessage);
 	}
@@ -60,7 +66,6 @@ public class InstructionMessageValidatorTest {
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidInstructionType() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INVALID_INSTRUCTION_TYPE);
 		testedInstance.validate(instructionMessage);
 	}
@@ -68,7 +73,6 @@ public class InstructionMessageValidatorTest {
 	@Test(expected = InstructionMessageValidationException.class)
 	public void shouldThrowExceptionWhenInvalidProductCode() {
 
-		InstructionMessage instructionMessage = new InstructionMessage();
 		instructionMessage.setInstructionType(INVALID_PRODUCT_CODE);
 		testedInstance.validate(instructionMessage);
 	}

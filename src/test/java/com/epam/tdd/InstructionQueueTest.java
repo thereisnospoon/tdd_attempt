@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class InstructionQueueTest {
 
 	private static final int ZERO_COUNT = 0;
+	private static final int COUNT_FOR_QUEUE_WITH_TWO_MESSAGES = 2;
 
 	private InstructionQueue testedInstance = new InstructionQueue();
 
@@ -54,6 +55,26 @@ public class InstructionQueueTest {
 	public void shouldHaveZeroCountWhenEmpty() {
 
 		assertTrue(testedInstance.isEmpty());
+		assertEquals(ZERO_COUNT, testedInstance.count());
+	}
+
+	@Test
+	public void shouldHaveCorrectCountWhenTwoMessageInQueue() {
+
+		testedInstance.enqueue(instructionMessage);
+		testedInstance.enqueue(instructionMessage);
+		assertEquals(COUNT_FOR_QUEUE_WITH_TWO_MESSAGES, testedInstance.count());
+	}
+
+	@Test
+	public void shouldHaveZeroCountWhenAllMessagesRemoved() {
+
+		testedInstance.enqueue(instructionMessage);
+		testedInstance.enqueue(instructionMessage);
+
+		testedInstance.dequeue();
+		testedInstance.dequeue();
+
 		assertEquals(ZERO_COUNT, testedInstance.count());
 	}
 }

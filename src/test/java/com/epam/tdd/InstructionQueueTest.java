@@ -3,6 +3,7 @@ package com.epam.tdd;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -37,5 +38,13 @@ public class InstructionQueueTest {
 		testedInstance.enqueue(instructionMessage);
 		testedInstance.dequeue();
 		assertTrue(testedInstance.isEmpty());
+	}
+
+	@Test
+	public void shouldDequeuePreviouslyAddedMessage() {
+
+		testedInstance.enqueue(instructionMessage);
+		InstructionMessage retrievedInstructionMessage = testedInstance.dequeue();
+		assertEquals(instructionMessage, retrievedInstructionMessage);
 	}
 }

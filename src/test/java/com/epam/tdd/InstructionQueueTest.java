@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
 
 public class InstructionQueueTest {
 
+	private static final int ZERO_COUNT = 0;
+
 	private InstructionQueue testedInstance = new InstructionQueue();
 
 	private InstructionMessage instructionMessage;
@@ -19,7 +21,7 @@ public class InstructionQueueTest {
 	}
 
 	@Test
-	public void shouldBeEmptyQueue() {
+	public void shouldBeEmpty() {
 		assertTrue(testedInstance.isEmpty());
 	}
 
@@ -46,5 +48,12 @@ public class InstructionQueueTest {
 		testedInstance.enqueue(instructionMessage);
 		InstructionMessage retrievedInstructionMessage = testedInstance.dequeue();
 		assertEquals(instructionMessage, retrievedInstructionMessage);
+	}
+
+	@Test
+	public void shouldHaveZeroCountWhenEmpty() {
+
+		assertTrue(testedInstance.isEmpty());
+		assertEquals(ZERO_COUNT, testedInstance.count());
 	}
 }

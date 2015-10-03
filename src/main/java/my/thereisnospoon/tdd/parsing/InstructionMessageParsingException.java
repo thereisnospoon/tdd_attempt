@@ -1,4 +1,4 @@
-package com.epam.tdd.parsing;
+package my.thereisnospoon.tdd.parsing;
 
 public class InstructionMessageParsingException extends RuntimeException {
 

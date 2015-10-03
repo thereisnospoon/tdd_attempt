@@ -1,7 +1,7 @@
-package com.epam.tdd.validation;
+package my.thereisnospoon.tdd.validation;
 
-import com.epam.tdd.InstructionMessage;
-import com.epam.tdd.InstructionMessageType;
+import my.thereisnospoon.tdd.InstructionMessage;
+import my.thereisnospoon.tdd.InstructionMessageType;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
-package com.epam.tdd;
+package my.thereisnospoon.tdd;
 
-import com.epam.tdd.validation.InstructionMessageValidationException;
-import com.epam.tdd.validation.InstructionMessageValidator;
+import my.thereisnospoon.tdd.validation.InstructionMessageValidationException;
+import my.thereisnospoon.tdd.validation.InstructionMessageValidator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

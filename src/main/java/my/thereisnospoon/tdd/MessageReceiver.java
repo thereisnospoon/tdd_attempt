@@ -1,4 +1,4 @@
-package com.epam.tdd;
+package my.thereisnospoon.tdd;
 
 public interface MessageReceiver {
 

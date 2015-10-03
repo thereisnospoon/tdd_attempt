@@ -1,4 +1,4 @@
-package com.epam.tdd.validation;
+package my.thereisnospoon.tdd.validation;
 
 public class InstructionMessageValidationException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package com.epam.tdd.validation;
+package my.thereisnospoon.tdd.validation;
 
-import com.epam.tdd.InstructionMessage;
+import my.thereisnospoon.tdd.InstructionMessage;
 
 import java.time.Instant;
 

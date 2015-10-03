@@ -1,6 +1,6 @@
-package com.epam.tdd;
+package my.thereisnospoon.tdd;
 
-import com.epam.tdd.parsing.InstructionMessageParser;
+import my.thereisnospoon.tdd.parsing.InstructionMessageParser;
 
 public class MessageReceiverImpl implements MessageReceiver {
 

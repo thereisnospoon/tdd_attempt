@@ -1,6 +1,6 @@
-package com.epam.tdd;
+package my.thereisnospoon.tdd;
 
-import com.epam.tdd.validation.InstructionMessageValidator;
+import my.thereisnospoon.tdd.validation.InstructionMessageValidator;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

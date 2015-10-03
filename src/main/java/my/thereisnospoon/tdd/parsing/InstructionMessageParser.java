@@ -1,7 +1,7 @@
-package com.epam.tdd.parsing;
+package my.thereisnospoon.tdd.parsing;
 
-import com.epam.tdd.InstructionMessage;
-import com.epam.tdd.InstructionMessageType;
+import my.thereisnospoon.tdd.InstructionMessage;
+import my.thereisnospoon.tdd.InstructionMessageType;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
